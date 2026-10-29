@@ -1,0 +1,4 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.1.0
+  Features:
+    - Initial release. Enlarges Unichest to 7x7 with a warehouse sprite.
