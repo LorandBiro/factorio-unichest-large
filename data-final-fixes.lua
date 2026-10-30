@@ -2,13 +2,18 @@
 -- This is a "modification mod": it mutates Unichest's prototype in place
 -- instead of redefining it, so it must load after Unichest.
 
-local entity = data.raw["linked-container"]["zy-unichest"]
+-- Unichest registers its item, entity, recipe, and technology under the same
+-- name. The recipe picks up its icon from the item automatically.
+local name = "zy-unichest"
+local item = data.raw["item"][name]
+local entity = data.raw["linked-container"][name]
+local technology = data.raw["technology"][name]
 
 assert(
-  entity,
-  "unichest-large could not find the 'zy-unichest' prototype. " ..
+  entity and item and technology,
+  "unichest-large could not find the 'zy-unichest' prototypes. " ..
   "The Unichest mod must be installed and enabled (it is a required dependency). " ..
-  "If Unichest is installed, its internal entity name may have changed in a newer version."
+  "If Unichest is installed, its internal prototype names may have changed in a newer version."
 )
 
 -- 7x7 footprint (with a little extra collision margin, like vanilla large buildings)
@@ -17,8 +22,9 @@ entity.selection_box = { { -3.5, -3.5 }, { 3.5, 3.5 } }
 entity.drawing_box = { { -3.5, -3.5 }, { 3.5, 3.5 } }
 
 -- Replace the 1x1 linked-chest picture with a single warehouse sprite.
--- scale 0.58 is chosen so the 520x480 2x-art renders slightly over the 7x7
--- footprint, the way vanilla building sprites overhang their collision box.
+-- The Warehousing mod draws this same 520x480 sprite at scale 0.5 for its 6x6
+-- warehouse; 0.5 * 7/6 ~= 0.58 keeps the same overhang over our 7x7 footprint,
+-- the way vanilla building sprites overhang their collision box.
 -- NOTE: shift/scale may need a small in-game visual tweak.
 entity.picture = {
   filename = "__unichest-large__/graphics/warehouse-linked.png",
@@ -28,5 +34,22 @@ entity.picture = {
   shift = { 0, 0 },
 }
 
--- Everything else (inventory settings, recipe, technology, gui_mode, ...) is
--- intentionally left untouched.
+-- Icons: Unichest reuses the vanilla linked-chest icon for the item, entity,
+-- and technology. Point them at the warehouse art instead. Both icon files are
+-- 4-mipmap strips (icon_size + half + quarter + eighth laid out horizontally).
+local icon = "__unichest-large__/graphics/icons/warehouse-linked.png"
+item.icon = icon
+item.icon_size = 64
+item.icon_mipmaps = 4
+entity.icon = icon
+entity.icon_size = 64
+entity.icon_mipmaps = 4
+
+-- TODO: draw a dedicated research image for the enlarged dock; the Warehousing
+-- warehouse research image will do for now.
+technology.icon = "__unichest-large__/graphics/research/warehouse-research.png"
+technology.icon_size = 256
+technology.icon_mipmaps = 4
+
+-- Everything else (inventory settings, recipe, technology unlocks, gui_mode, ...)
+-- is intentionally left untouched.

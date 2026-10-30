@@ -2,3 +2,4 @@
 Version: 0.1.0
   Features:
     - Initial release. Enlarges Unichest to 7x7 with a warehouse sprite.
+    - Warehouse icon and research image replace the default linked-chest icons.
