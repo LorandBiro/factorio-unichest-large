@@ -32,8 +32,8 @@ entity.picture = {
   filename = "__unichest-large__/graphics/memory-unit.png",
   priority = "high",
   size = { 512, 512 },
-  shift = { 0.59375, 0 },
-  scale = 0.5,
+  scale = 0.45,
+  shift = { 0.534375, 0 },
 }
 
 -- Icons: the original memory-unit item icon (64px + 3 mipmap levels in a
