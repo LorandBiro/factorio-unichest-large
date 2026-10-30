@@ -5,5 +5,5 @@
   "author": "LorandBiro",
   "factorio_version": "2.1",
   "dependencies": ["base >= 2.0", "Unichest >= 1.0.10"],
-  "description": "Enlarges the Unichest to a 7x7 logistics dock. Balance through footprint: big enough to be subfactory infrastructure, too big to spam next to every assembler."
+  "description": "Enlarges the Unichest to a 6x6 logistics dock. Balance through footprint: big enough to be subfactory infrastructure, too big to spam next to every assembler."
 }

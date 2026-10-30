@@ -1,4 +1,4 @@
--- unichest-large: enlarge the Unichest entity to a 7x7 logistics dock.
+-- unichest-large: enlarge the Unichest entity to a 6x6 memory-unit silo.
 -- This is a "modification mod": it mutates Unichest's prototype in place
 -- instead of redefining it, so it must load after Unichest.
 
@@ -16,28 +16,30 @@ assert(
   "If Unichest is installed, its internal prototype names may have changed in a newer version."
 )
 
--- 7x7 footprint (with a little extra collision margin, like vanilla large buildings)
-entity.collision_box = { { -3.4, -3.4 }, { 3.4, 3.4 } }
-entity.selection_box = { { -3.5, -3.5 }, { 3.5, 3.5 } }
-entity.drawing_box = { { -3.5, -3.5 }, { 3.5, 3.5 } }
+-- Building art: the "memory-unit" entity from the Deep Storage Unit
+-- ("Memory Storage") mod (MIT, code by notnotmelon, graphics by kaueNP -- see
+-- CREDITS and graphics/LICENSE-DeepStorageUnit.txt). We reuse the art AND the
+-- entity configuration exactly as the original mod defines it: a 6x6 building
+-- (collision_box +/-2.7, selection_box +/-3) with a 512x512 sprite at
+-- scale 0.5 and shift {0.59375, 0}.
+entity.collision_box = { { -2.7, -2.7 }, { 2.7, 2.7 } }
+entity.selection_box = { { -3, -3 }, { 3, 3 } }
+-- No drawing_box: the original mod sets none, and EntityPrototype::drawing_box
+-- no longer exists in Factorio 2.0 (replaced by
+-- drawing_box_vertical_extension).
 
--- Replace the 1x1 linked-chest picture with a single warehouse sprite.
--- The Warehousing mod draws this same 520x480 sprite at scale 0.5 for its 6x6
--- warehouse; 0.5 * 7/6 ~= 0.58 keeps the same overhang over our 7x7 footprint,
--- the way vanilla building sprites overhang their collision box.
--- NOTE: shift/scale may need a small in-game visual tweak.
 entity.picture = {
-  filename = "__unichest-large__/graphics/warehouse-linked.png",
-  width = 520,
-  height = 480,
-  scale = 0.58,
-  shift = { 0, 0 },
+  filename = "__unichest-large__/graphics/memory-unit.png",
+  priority = "high",
+  size = { 512, 512 },
+  shift = { 0.59375, 0 },
+  scale = 0.5,
 }
 
--- Icons: Unichest reuses the vanilla linked-chest icon for the item, entity,
--- and technology. Point them at the warehouse art instead. Both icon files are
--- 4-mipmap strips (icon_size + half + quarter + eighth laid out horizontally).
-local icon = "__unichest-large__/graphics/icons/warehouse-linked.png"
+-- Icons: the original memory-unit item icon (64px + 3 mipmap levels in a
+-- 120x64 strip) on the item and the entity. Unichest reuses the vanilla
+-- linked-chest icon otherwise.
+local icon = "__unichest-large__/graphics/icons/memory-unit.png"
 item.icon = icon
 item.icon_size = 64
 item.icon_mipmaps = 4
@@ -45,11 +47,10 @@ entity.icon = icon
 entity.icon_size = 64
 entity.icon_mipmaps = 4
 
--- TODO: draw a dedicated research image for the enlarged dock; the Warehousing
--- warehouse research image will do for now.
-technology.icon = "__unichest-large__/graphics/research/warehouse-research.png"
-technology.icon_size = 256
-technology.icon_mipmaps = 4
+-- Research icon: the original memory-unit technology icon (128x128).
+technology.icon = "__unichest-large__/graphics/research/memory-unit.png"
+technology.icon_size = 128
+technology.icon_mipmaps = nil
 
 -- Everything else (inventory settings, recipe, technology unlocks, gui_mode, ...)
 -- is intentionally left untouched.

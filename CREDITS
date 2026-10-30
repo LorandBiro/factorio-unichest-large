@@ -1,2 +1,6 @@
-Warehouse graphics (entity sprite, icon, research image): "Warehousing" mod by David-John Miller (anoyomouse), MIT license.
-https://github.com/Warehousing/Warehousing
+Building art (memory-unit entity sprite), item icon and research icon:
+"Deep Storage Unit" ("Memory Storage") mod, code by notnotmelon (Zachary Picco), graphics by kaueNP.
+MIT license, Copyright (c) 2020 Zachary Picco.
+https://github.com/notnotmelon/deep-storage-unit
+All three files are redistributed unmodified under the terms of the MIT license
+(see graphics/LICENSE-DeepStorageUnit.txt).
